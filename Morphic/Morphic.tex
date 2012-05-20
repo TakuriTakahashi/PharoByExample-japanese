@@ -43,7 +43,7 @@
 
 \indmain{Morphic}は、\pharo のGUIに付けられた名前です。
 Morphicは\st で書かれており、さまざまなOSの間で完全な互換性があります。その結果、\pharo はUnix, MacOS, Windowsのいずれにおいても全く同じ見た目となっています。
-Morphicと他の多くのユーザー・インタフェース・ツールキットとの違いは、インタフェースを「構成すること」と「実行すること」との間に差がないということです。画面上の全てのグラフィック要素（graphical elements）は、いつでもユーザーがまとめたり分けたりできます。\footnote{Hilaire Fernandesに謝意を評します。彼のフランス語で書かれたオリジナル版をこの章のベースとすることを許諾してくれました。}
+Morphicと他の多くのユーザー・インタフェース・ツールキットとの違いは、インタフェースを「構成すること」と「実行すること」とのモードを分けていないということです。画面上のすべてのグラフィック要素（graphical elements）は、いつでもユーザーが組み立てたり分解したりできます。\footnote{Hilaire Fernandesに謝意を評します。彼のフランス語で書かれたオリジナル版をこの章のベースとすることを許諾してくれました。}
 
 \ab{After the first printing, I took an editing pass, correcting some errors and grammatical infelicities.}
 
@@ -53,12 +53,12 @@ Morphicと他の多くのユーザー・インタフェース・ツールキッ�
 \section{Morphicの歴史}
 
 Morphicは、プログラミング言語\ind{Self}向けとして、John MaloneyとRandy Smithによって1993年頃から開発が始められました。
-Maloneyは\squeak のために新しくMorphicを書き直しましたが、Self版の基本的な考え方は今でも\pharo のMorphicに受け継がれています。その基本的な考え方とは、\emph{directness}と\emph{liveness}です。
-Directnessとは、オブジェクトである画面上の図形を、マウスでクリックして直接調べたり変更したりできるということです。
-Livenessとは、GUIがいつでもユーザーに反応できることです。つまり、画面上の情報は、それが表している世界が変わるたびに自動的に更新されます。
-簡単な例を挙げれば、メニューから項目を取り外したものがボタンとして機能させられるのです。
+Maloneyは\squeak のために新しくMorphicを書き直しましたが、Self版の基本的な考え方は今でも\pharo のMorphicに受け継がれています。その基本的な考え方とは、\emph{直接性}と\emph{生命感}です。
+直接性とは、画面上の図形がマウスでクリックして直接調べたり変更したりできるオブジェクトであるということです。
+生命感とは、ユーザーインターフェースがいつでもユーザーの操作に反応できることです。つまり、画面上の情報は、それが表している世界が変わるたびに自動的に更新されます。
+簡単な例を挙げれば、メニューから項目を取り外してボタンとして使うことができます。
 
-\dothis{Worldメニューを出します。その上で\Metaclick を一回すると、Morphic Haloが現れます。\footnote{Preferencesブラウザーで、\button{halosEnabled}を設定することを忘れないでください。または、ワークスペース上で\ct{Preferences enable: \#halosEnabled}を実行します。}その後、適当なメニュー項目の上で更に\metaclick をすると、メニュー項目の上にHaloが現れます。\figref{detachingMenu}で示すように、黒いハンドル\grabHandle を掴んでその項目を画面の適当な場所にドラッグします。}
+\dothis{Worldメニューを出します。その上で\Metaclick を一回すると、Morphic ハローが現れます。\footnote{プリファレンス・ブラウザーで、\button{halosEnabled}を設定することを忘れないでください。または、ワークスペース上で\ct{Preferences enable: \#halosEnabled}を実行します。}その後、取り外したいメニュー項目の上で更に\metaclick をすると、メニュー項目の上にハローが現れます。\figref{detachingMenu}で示すように、黒いハンドル\grabHandle を掴んでその項目を画面の適当な場所にドラッグします。}
 \index{Morphic!halo}
 \index{blue button}
 
@@ -68,7 +68,7 @@ Livenessとは、GUIがいつでもユーザーに反応できることです。
 		\figlabel{detachingMenu}}
 \end{figure}
 
-\pharo の起動後、画面上にある全てのオブジェクトは、\emph{モーフ}と呼ばれます。つまり、これらのオブジェクトは\ct{Morph}クラスのインスタンスです。
+\pharo の起動後、画面上にあるすべてのオブジェクトは、\emph{モーフ}と呼ばれます。つまり、これらのオブジェクトは\ct{Morph}クラスのインスタンスです。
 \mbox{\ct{Morph}}クラスは多くのメソッドを持つ大きなクラスであるため、少ないコードで面白い動作をするサブクラスを作れます。
 あらゆるオブジェクトを表すモーフを作れますが、どのくらい良い表現が得られるかはオブジェクトによります。
 
@@ -86,13 +86,13 @@ Livenessとは、GUIがいつでもユーザーに反応できることです。
 % ON: openViewerForArgument is gone in pharo!
 
 これは、\ct{'Morph'}という文字列を表すモーフを作り、「ワールド」上で開きます。（つまり、表示します）「ワールド」とは、\pharo の画面のことです。
-表示されているモーフは\metaclick で掴めます。
+これで\metaclick で操作できるグラフィック要素 — モーフ — が得られます。
 %The second line opens a ``viewer'' that shows you attributes of this Morph, such as its \ct{x} and \ct{y}  coordinates on the screen.  Clicking on one of the yellow exclamation marks sends a message to the Morph, which responds appropriately.
 
 もちろん、今見ているものより面白い表現を持つモーフを定義することも可能です。
 class \ct{Object}クラスにある\mthind{Object}{asMorph}メソッドのデフォルトの実装では、単にStringMorphを作るだけです。
 例えば、\ct{Color tan asMorph}は、単に\clsind{Color} \ct{tan printString}の実行結果をラベルに持つStringMorphを返します。
-それでは、色のついた長方形を代わりに返すようにしましょう。
+それでは、これを変更して色のついた長方形を代わりに返すようにしましょう。
 
 \dothis{ブラウザーを開き\ct{Color}クラスに以下のメソッドを追加します。}
 \needlines{3}
@@ -110,7 +110,7 @@ Color>>>asMorph
 モーフはオブジェクトです。つまり、\st の他のオブジェクトと同様に操作できます。
 メッセージを送ることで属性を変えたり、新しいMorphのサブクラスを作ったりできます。
 どんなモーフも（たとえ画面に表示されていなくとも）位置と大きさを持っています。
-便宜上、全てのモーフは画面上の四角形の領域を占めていると考えます。不規則な形状の場合、その位置と大きさは、そのモーフを囲む最小の四角形の「箱」となります。この箱を、モーフのバウンディングボックス、あるいは単に「bounds」と言います。
+便宜上、すべてのモーフは画面上の四角形の領域を占めていると考えます。不規則な形状の場合であっても、その位置と大きさは、そのモーフを囲む最小の四角形の「箱」となります。この箱を、モーフのバウンディングボックス、あるいは単に「bounds」と言います。
 \mthind{Morph}{position}メソッドは、モーフの左上の座標（またはモーフのバウンディングボックスの左上の座標）を表す\ct{Point}オブジェクトを返します。
 この座標系の原点は画面の左上の端にあります。$y$座標は画面の\emph{下方向に}増えていき、$x$座標は右方向に増えていきます。
 \ct{extent}メソッドも\ct{Point}オブジェクトを返しますが、位置ではなくモーフの幅と高さからなる座標値を返します。
@@ -244,13 +244,13 @@ containsPoint: aPoint
 		or: [verticalBar containsPoint: aPoint]
 \end{method}
 
-このメソッドは\ct{drawOn:}と同じ方法を使います。要は、\ct{containsPoint:}が\ct{true}と答える領域は、\ct{drawOn}によって色が付けられた領域と一致すると言えるからです。
+このメソッドは\ct{drawOn:}と同じロジックを使っています。つまり、\ct{containsPoint:}が\ct{true}と答える領域は、\ct{drawOn}によって色が付けられた領域と一致すると確実に言えます。
 \ct{Rectangle}クラスの\mthind{Rectangle}{containsPoint:}を活用すれば、この面倒な仕事をやりとげることができます。
 
 メソッド\mthsref{firstDrawOn}と\ref{mth:firstContains}のコードには２つの問題点があります。
 あきらかな点は、コードが重複していることです。
 これはとても重大な過ちです。というのも、\ct{horizonatalBar}や\ct{verticalBar}の計算方法を変える必要があるときに、２カ所にあるコードの一方を修正するのを簡単に忘れてしまうからです。
-解決方法は、これらの計算を新たな２つのメソッドに分けることです。どちらも\ct{private}プロトコルに格納します。
+解決方法は、これらの計算を新たな２つのメソッドに抽出することです。どちらも\ct{private}プロトコルに格納します。
 
 \needlines{4}
 \begin{method}{\ct{horizontalBar}.}
@@ -285,7 +285,7 @@ containsPoint: aPoint
 		or: [self verticalBar containsPoint: aPoint]
 \end{method}
 
-意味のある名前をプライベートメソッドにしたことで、このコードはより簡単に理解できるようになりました。
+プライベートメソッドに意味のある名前をつけたおかげで、このコードはより簡単に理解できるようになりました。
 実際、すぐに２番目の問題が明らかになります。それは、十字の中央の部分がhorizontalBarとverticalBarの両者の下になっており、２度描かれてしまうという問題です。
 不透明な色を塗る場合には問題になりませんが、\figref{overdrawBug}に示すような半透明な色で描くとすぐにこのバグが露見します。
 
@@ -317,11 +317,11 @@ m color: (Color blue alpha: 0.3).
 \end{code}
 
 \noindent
-この解決法は、verticalBarを３つの部分に分け、上側と下側の部分だけ描くということです。
-再度、\ct{Rectangle}クラスでこの面倒な仕事をするメソッドを見つけます。\ct{r1 areasOutside: r2}は、\ct{r2}の外側に出ている\ct{r1}の部分を含んだ、四角形の配列を返します。
+この解決法は、verticalBarを３つの部分に分け、上側と下側の部分だけ塗りつぶすということです。
+\ct{Rectangle}クラスでこの面倒な仕事をしてくれるメソッドがまた見つかります。\ct{r1 areasOutside: r2}は、\ct{r2}の外側に出ている\ct{r1}を構成する四角形の配列を返します。
 以下が改良されたコードになります。
 
-\begin{method}{\ct{drawOn:}メソッドの改良版。十字の中心を一度だけ描く。}
+\begin{method}{\ct{drawOn:}メソッドの改良版。十字の中心を一度だけ塗りつぶす。}
 drawOn: aCanvas 
 	| topAndBottom |
 	aCanvas fillRectangle: self horizontalBar color: self color.
@@ -394,7 +394,7 @@ verticalBar
 %=================================================================
 \section{対話とアニメーション}
 
-モーフを使って、生きたユーザー・インタフェースを実現するには、マウスやキーボードでモーフと対話できなければなりません。
+モーフを使って、いきいきとしたユーザーインターフェースを実現するには、マウスやキーボードでモーフと対話できなければなりません。
 さらに、モーフは自分の見た目や位置を変えることで（つまり自分自身のアニメーションによって）、ユーザーからの入力に反応する必要があります。
 
 
@@ -405,7 +405,7 @@ verticalBar
 後述するように、\ct{mouseDown:}と\ct{mouseUp:}メッセージは、\clsind{MouseEvent}オブジェクトの引数を伴って送られます。この引数は、マウスの動作の詳細を表しています。
 
 \ct{CrossMorph}クラスを拡張して、マウスイベントを扱うようにしましょう。
-まず、全ての十字モーフが\mthind{Morph}{handlesMouseDown:}メッセージに\ct{true}を返すようにします。
+まず、全ての十字モーフが\mthind{Morph}{handlesMouseDown:}メッセージに確実に\ct{true}を返すことから始めます。
 
 \dothis{\ct{CrossMorph}に以下のメソッドを追加します。}
 \begin{method}{\ct{CrossMorph}がマウスクリックに反応するように宣言する。}
@@ -593,7 +593,7 @@ ReceiverMorph>>>initialize
 	bounds := 0 @ 0 extent: 200 @ 200
 \end{method}
 
-受け入れ側のモーフがドロップを受け入れるか否かは、どのように判断されるのでしょか？
+受け入れ側のモーフがドロップを受け入れるか否かは、どのように判断されるのでしょうか？
 一般的に、モーフの両者がドロップに同意する必要があります。
 受け入れ側は\mthind{Morph}{wantsDroppedMorph:event:}メッセージに反応することで決定します。最初の引数はドロップされるモーフ、２番目の引数はマウスイベントです。例えば、受け入れ側はドロップ時に何らかの修飾キーが押されたかどうかを調べられます。
 ドロップされるモーフも、\ct{wantsToBeDroppedInto:}メッセージが送られた時に、ドロップされる先のモーフが気に入るか調べるチャンスがあります。このメソッドのデフォルトの実装（\ct{Morph}クラスで定義されている）では、\ct{true}を返します。
@@ -603,7 +603,7 @@ ReceiverMorph>>>wantsDroppedMorph: aMorph event: anEvent
 	^ aMorph color = Color blue
 \end{method}
 
-受け入れ側のモーフがドロップを望まない場合には、ドロップされるモーフに何が起こるのでしょうか。デフォルトの動作は、何もしないことです。つまり、ドロップされずに受け入れ側のモーフの上に置かれるだけです。より直感的な動作としては、ドロップされるモーフが元の位置に戻ることでしょう。これは、ドロップされるモーフを拒否する際に、受け入れ側のモーフが\mthind{Morph}{repelsMorph:event:}メッセージに対して\ct{true}を返すことで実現できます。
+受け入れ側のモーフがドロップを望まない場合には、ドロップされるモーフに何が起こるのでしょうか?デフォルトの動作は、何もしないことです。つまり、ドロップされずに受け入れ側のモーフの上に置かれるだけです。より直感的な動作としては、ドロップされるモーフが元の位置に戻ることでしょう。これは、ドロップされるモーフを拒否する際に、受け入れ側のモーフが\mthind{Morph}{repelsMorph:event:}メッセージに対して\ct{true}を返すことで実現できます。
 
 \needlines{4}
 \begin{method}{ドロップ拒否時のモーフの振る舞いを変える。}
@@ -642,7 +642,7 @@ DroppedMorph>>>initialize
 \end{method}
 
 ドロップされるモーフが受け入れ側に拒否された時にすべきことを設定できます。ここでは、モーフをマウスポインタに付いたままにします。
-\begin{method}{ドロップを拒否されたモーフの反応を定義すす。}
+\begin{method}{ドロップを拒否されたモーフの反応を定義する。}
 DroppedMorph>>>rejectDropMorphEvent: anEvent
 	| h |
 	h := anEvent hand.
@@ -651,7 +651,7 @@ DroppedMorph>>>rejectDropMorphEvent: anEvent
 	anEvent wasHandled: true
 \end{method}
 
-イベントに対して\mthind{MorphicEvent}{hand}メッセージを送ると、\ct{HandMorph}のインスタンスである\emph{ハンド}が返されます。このオブジェクトは、マウスポインタやマウスポインタに関係する様々なものを管理しています。
+イベントに対して\mthind{MorphicEvent}{hand}メッセージを送ると、\ct{HandMorph}のインスタンスである\emph{ハンド}が返されます。このオブジェクトはマウスポインタを表していて、マウスポインタに関係するものはなんでも持っています。
 ここでは、ドロップを拒否されたモーフである\ct{self}をハンドが掴むように\ct{World}に指示しています。
 
 \dothis{\ct{DroppedMorph}の２つのインスタンスを作成し、受け入れ側のモーフにドラッグ＆ドロップします。}
@@ -880,7 +880,7 @@ DieMorph>>>drawOn: aCanvas
 %\end{methods}
 
 %=================================================================
-\section{Chapter summary}
+\section{まとめ}
 
 Morphicは、グラフィカルなフレームワークで、動的にGUI要素を組み合わせることができます。
 
